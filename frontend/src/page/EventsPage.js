@@ -8,8 +8,7 @@ export const loader = async () => {
   if (!response.ok) {
     throw new Error(`Error ${response.status}: ${response.statusText}`);
   }
-  const resData = await response.json();
-  return resData;
+  return response;
 };
 
 const EventsPage = () => {
