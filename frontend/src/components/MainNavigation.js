@@ -1,15 +1,21 @@
+import { NavLink } from 'react-router-dom';
+
 import classes from './MainNavigation.module.css';
 
 function MainNavigation() {
+  const activeStyle = ({isActive}) => {
+    return isActive ? classes.active : undefined;
+  }
+
   return (
     <header className={classes.header}>
       <nav>
         <ul className={classes.list}>
           <li>
-            <a>Home</a>
+            <NavLink to="/" className={activeStyle}>Home</NavLink>
           </li>
           <li>
-            <a>Events</a>
+            <NavLink to="events" className={activeStyle}>Events</NavLink>
           </li>
         </ul>
       </nav>
