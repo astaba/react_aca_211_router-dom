@@ -8,7 +8,7 @@ import {
 
 import RootLayout from "./ui/RootLayout";
 import HomePage from "./page/HomePage";
-import EventsPage from "./page/EventsPage";
+import EventsPage, { loader as eventsLoader } from "./page/EventsPage";
 import EventDetailPage from "./page/EventDetailPage";
 import EditEventPage from "./page/EditEventPage";
 import NewEventPage from "./page/NewEventPage";
@@ -18,7 +18,11 @@ const routesDefinition = createRoutesFromElements(
   <Route path="/" element={<RootLayout />}>
     <Route index element={<HomePage />} />
     <Route path="events" element={<EventsLayout />}>
-      <Route index element={<EventsPage />} />
+      <Route
+        index
+        element={<EventsPage />}
+        loader={eventsLoader}
+      />
       <Route path=":eventID" element={<EventDetailPage />} />
       <Route path=":eventID/edit" element={<EditEventPage />} />
       <Route path="new" element={<NewEventPage />} />
