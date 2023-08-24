@@ -11,7 +11,7 @@ export const loader = async () => {
     // throw json({ message: "Could not fetch events!", status: 500 });
     throw json(
       { message: "Could not fetch events!" },
-      { status: response.status || 500, statusText: response.statusText }
+      { status: response.status, statusText: response.statusText }
     );
   }
   return response;

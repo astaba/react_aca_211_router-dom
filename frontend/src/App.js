@@ -9,7 +9,9 @@ import {
 import RootLayout from "./ui/RootLayout";
 import HomePage from "./page/HomePage";
 import EventsPage, { loader as eventsLoader } from "./page/EventsPage";
-import EventDetailPage from "./page/EventDetailPage";
+import EventDetailPage, {
+  loader as eventDetailLoader,
+} from "./page/EventDetailPage";
 import EditEventPage from "./page/EditEventPage";
 import NewEventPage from "./page/NewEventPage";
 import EventsLayout from "./ui/EventsLayout";
@@ -26,8 +28,15 @@ const routesDefinition = createRoutesFromElements(
         loader={eventsLoader}
         errorElement={<ErrorDisplay />}
       />
-      <Route path=":eventID" element={<EventDetailPage />} />
-      <Route path=":eventID/edit" element={<EditEventPage />} />
+      <Route
+        path=":eventID"
+        id="event-detail"
+        loader={eventDetailLoader}
+        errorElement={<ErrorDisplay />}
+      >
+        <Route index element={<EventDetailPage />} />
+        <Route path="edit" element={<EditEventPage />} />
+      </Route>
       <Route path="new" element={<NewEventPage />} />
     </Route>
     <Route path="*" element={<NotFound />} />
