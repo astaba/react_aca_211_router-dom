@@ -4,12 +4,13 @@ import PageContent from "./PageContent";
 
 const ErrorDisplay = () => {
   const error = useRouteError();
-
+  console.log(error);
   let title = "An error occurred!";
-  let message = "Something went wrong";
+  let message = error.message;
 
-  if (error.status === 500) {
-    message = JSON.parse(error.data).message;
+  if (error.status) {
+    title = `${error.status}: ${error.statusText}`;
+    message = error.data.message;
   }
   // if(error.status === 404) {
   //   title = "Not found!"
