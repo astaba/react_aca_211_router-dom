@@ -17,7 +17,7 @@ export const loader = async ({ request, params }) => {
 
 const EventDetailPage = () => {
   const data = useRouteLoaderData("event-detail");
-  console.log(data);
+ // console.log(data);
 
   return <EventItem event={data.event} />;
 };

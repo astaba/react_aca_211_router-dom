@@ -13,7 +13,7 @@ import EventDetailPage, {
   loader as eventDetailLoader,
 } from "./page/EventDetailPage";
 import EditEventPage from "./page/EditEventPage";
-import NewEventPage from "./page/NewEventPage";
+import NewEventPage, { action as newEventAction } from "./page/NewEventPage";
 import EventsLayout from "./ui/EventsLayout";
 import ErrorDisplay from "./components/ErrorDisplay";
 import NotFound from "./page/NotFound";
@@ -37,7 +37,12 @@ const routesDefinition = createRoutesFromElements(
         <Route index element={<EventDetailPage />} />
         <Route path="edit" element={<EditEventPage />} />
       </Route>
-      <Route path="new" element={<NewEventPage />} />
+      <Route
+        path="new"
+        element={<NewEventPage />}
+        action={newEventAction}
+        errorElement={<ErrorDisplay />}
+      />
     </Route>
     <Route path="*" element={<NotFound />} />
   </Route>
