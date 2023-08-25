@@ -23,6 +23,10 @@ export const action = async ({ request, params }) => {
 
   const response = await fetch(goingRequest);
 
+  if(response.status === 422) {
+    return response;
+  }
+
   if (!response.ok) {
     throw json(
       { message: "Could not save event!" },
