@@ -11,6 +11,7 @@ import HomePage from "./page/HomePage";
 import EventsPage, { loader as eventsLoader } from "./page/EventsPage";
 import EventDetailPage, {
   loader as eventDetailLoader,
+  action as eventDetailDeleteAction,
 } from "./page/EventDetailPage";
 import EditEventPage from "./page/EditEventPage";
 import NewEventPage, { action as newEventAction } from "./page/NewEventPage";
@@ -34,7 +35,12 @@ const routesDefinition = createRoutesFromElements(
         loader={eventDetailLoader}
         errorElement={<ErrorDisplay />}
       >
-        <Route index element={<EventDetailPage />} />
+        <Route
+          index
+          element={<EventDetailPage />}
+          action={eventDetailDeleteAction}
+          errorElement={<ErrorDisplay />}
+        />
         <Route path="edit" element={<EditEventPage />} />
       </Route>
       <Route
