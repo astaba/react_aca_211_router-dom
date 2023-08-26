@@ -19,6 +19,9 @@ import EventsLayout from "./ui/EventsLayout";
 import ErrorDisplay from "./components/ErrorDisplay";
 import NotFound from "./page/NotFound";
 import { action as eventFormAction } from "./components/EventForm";
+import NewsletterPage, {
+  action as newsletterPageAction,
+} from "./page/NewsletterPage";
 
 const routesDefinition = createRoutesFromElements(
   <Route path="/" element={<RootLayout />}>
@@ -56,6 +59,12 @@ const routesDefinition = createRoutesFromElements(
         errorElement={<ErrorDisplay />}
       />
     </Route>
+    <Route
+      path="newsletter"
+      element={<NewsletterPage />}
+      action={newsletterPageAction}
+      errorElement={<ErrorDisplay />}
+    />
     <Route path="*" element={<NotFound />} />
   </Route>
 );
