@@ -14,10 +14,11 @@ import EventDetailPage, {
   action as eventDetailDeleteAction,
 } from "./page/EventDetailPage";
 import EditEventPage from "./page/EditEventPage";
-import NewEventPage, { action as newEventAction } from "./page/NewEventPage";
+import NewEventPage from "./page/NewEventPage";
 import EventsLayout from "./ui/EventsLayout";
 import ErrorDisplay from "./components/ErrorDisplay";
 import NotFound from "./page/NotFound";
+import { action as eventFormAction } from "./components/EventForm";
 
 const routesDefinition = createRoutesFromElements(
   <Route path="/" element={<RootLayout />}>
@@ -41,12 +42,17 @@ const routesDefinition = createRoutesFromElements(
           action={eventDetailDeleteAction}
           errorElement={<ErrorDisplay />}
         />
-        <Route path="edit" element={<EditEventPage />} />
+        <Route
+          path="edit"
+          element={<EditEventPage />}
+          action={eventFormAction}
+          errorElement={ErrorDisplay}
+        />
       </Route>
       <Route
         path="new"
         element={<NewEventPage />}
-        action={newEventAction}
+        action={eventFormAction}
         errorElement={<ErrorDisplay />}
       />
     </Route>

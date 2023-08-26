@@ -4,9 +4,47 @@ import {
   Form,
   useNavigation,
   useActionData,
+  redirect,
+  json,
 } from "react-router-dom";
 
 import classes from "./EventForm.module.css";
+
+export const action = async ({ request, params }) => {
+  const { eventID } = params;
+  const formData = await request.formData();
+  const eventData = {
+    title: formData.get("title"),
+    image: formData.get("image"),
+    date: formData.get("date"),
+    description: formData.get("description"),
+  };
+
+  let url = "http://localhost:8080/events/";
+  if (request.method === "PATCH") url += eventID;
+  const headers = new Headers({ "Content-Type": "application/json" });
+  const options = {
+    method: request.method,
+    headers,
+    body: JSON.stringify(eventData),
+  };
+  const goingRequest = new Request(url, options);
+
+  const response = await fetch(goingRequest);
+
+  if (response.status === 422) {
+    return response;
+  }
+
+  if (!response.ok) {
+    throw json(
+      { message: "Could not save event!" },
+      { status: response.status, statusText: response.statusText }
+    );
+  }
+
+  return redirect("/events");
+};
 
 function EventForm({ method, event }) {
   const navigate = useNavigate();
@@ -20,7 +58,7 @@ function EventForm({ method, event }) {
 
   return (
     // <Form method="post" action="any-other-route" className={classes.form}>
-    <Form method="post" className={classes.form}>
+    <Form method={method} className={classes.form}>
       {actionData && actionData.errors && (
         <ul>
           {Object.keys(actionData.errors).map((item) => (
