@@ -24,7 +24,7 @@ import NewsletterPage, {
 } from "./page/NewsletterPage";
 
 const routesDefinition = createRoutesFromElements(
-  <Route path="/" element={<RootLayout />}>
+  <Route path="/" element={<RootLayout />} errorElement={<ErrorDisplay />} >
     <Route index element={<HomePage />} />
     <Route path="events" element={<EventsLayout />}>
       <Route
