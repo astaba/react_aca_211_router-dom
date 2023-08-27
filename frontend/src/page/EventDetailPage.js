@@ -1,10 +1,17 @@
-import React from "react";
-import { json, useRouteLoaderData, redirect } from "react-router-dom";
+import React, { Suspense } from "react";
+import {
+  json,
+  useRouteLoaderData,
+  redirect,
+  defer,
+  Await,
+} from "react-router-dom";
 
 import EventItem from "../components/EventItem";
+import EventsList from "../components/EventsList";
+import { loaderWorker as listLoaderWorker } from "./EventsPage";
 
-export const loader = async ({ request, params }) => {
-  const { eventID } = params;
+const loaderWorker = async (eventID) => {
   const response = await fetch(`http://localhost:8080/events/${eventID}`);
   if (!response.ok) {
     throw json(
@@ -12,7 +19,16 @@ export const loader = async ({ request, params }) => {
       { status: response.status, statusText: response.statusText }
     );
   }
-  return response;
+  const data = await response.json();
+  return data.event;
+};
+
+export const loader = async ({ request, params }) => {
+  const { eventID } = params;
+  return defer({
+    event: await loaderWorker(eventID),
+    events: listLoaderWorker(),
+  });
 };
 
 export const action = async ({ request, params }) => {
@@ -35,10 +51,23 @@ export const action = async ({ request, params }) => {
 };
 
 const EventDetailPage = () => {
-  const data = useRouteLoaderData("event-detail");
+  const deferedData = useRouteLoaderData("event-detail");
   // console.log(data);
 
-  return <EventItem event={data.event} />;
+  return (
+    <React.Fragment>
+      <Suspense fallback={<h3 style={{ textAlign: "center" }}>Loading...</h3>}>
+        <Await resolve={deferedData.event}>
+          {(event) => <EventItem event={event} />}
+        </Await>
+      </Suspense>
+      <Suspense fallback={<h3 style={{ textAlign: "center" }}>Loading...</h3>}>
+        <Await resolve={deferedData.events}>
+          {(events) => <EventsList events={events} />}
+        </Await>
+      </Suspense>
+    </React.Fragment>
+  );
 };
 
 export default EventDetailPage;

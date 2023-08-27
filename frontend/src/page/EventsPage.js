@@ -3,7 +3,7 @@ import { useLoaderData, json, defer, Await } from "react-router-dom";
 
 import EventsList from "../components/EventsList";
 
-const loaderWorker = async () => {
+export const loaderWorker = async () => {
   const response = await fetch("http://localhost:8080/events");
   if (!response.ok) {
     // throw new Error(`Error ${response.status}: ${response.statusText}`);
