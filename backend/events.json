@@ -1,11 +1,1 @@
-{
-  "events": [
-    {
-      "id": "e1",
-      "title": "A dummy event",
-      "date": "2023-02-22",
-      "image": "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-      "description": "Join this amazing event and connect with fellow developers."
-    }
-  ]
-}
+{"events":[{"title":"Wedding ceremony!!!","image":"https://cdn0.weddingwire.in/vendor/5061/3_2/960/jpeg/wedding-decoration-xplore-events-wedding-event-decor-8_15_365061-161665040711638.jpeg","date":"2023-09-02","description":"Amazing day ","id":"eb3759b0-d739-45bc-a343-677da82f3f78"},{"title":"Fourth event","image":"https://bwproductions.co.za/wp-content/uploads/2021/12/events12-BW-productions.png","date":"2023-08-26","description":"A fourth amazing event","id":"e58856bc-5894-4e4f-ac97-ff2a1f49a46f"},{"title":"Third event","image":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGYyNjvRhOPjr7fGJVU0B4c5wjL1WwyZjGLg&usqp=CAU","date":"2023-02-05","description":"A third amazing event","id":"b3c161dc-2029-4b2c-aaad-e15880b8b763"},{"id":"e1","title":"A dummy event","date":"2023-02-22","image":"https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg","description":"Join this amazing event and connect with fellow developers."}]}
