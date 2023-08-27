@@ -1,9 +1,9 @@
-import React from "react";
-import { useLoaderData, json } from "react-router-dom";
+import React, { Suspense } from "react";
+import { useLoaderData, json, defer, Await } from "react-router-dom";
 
 import EventsList from "../components/EventsList";
 
-export const loader = async () => {
+const loaderWorker = async () => {
   const response = await fetch("http://localhost:8080/events");
   if (!response.ok) {
     // throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -14,13 +14,24 @@ export const loader = async () => {
       { status: response.status, statusText: response.statusText }
     );
   }
-  return response;
+  const data = await response.json();
+  return data.events;
+};
+
+export const loader = async () => {
+  return defer({ events: loaderWorker() });
 };
 
 const EventsPage = () => {
-  const { events: fetchedEvents } = useLoaderData();
+  const deferedData = useLoaderData();
 
-  return <EventsList events={fetchedEvents} />;
+  return (
+    <Suspense fallback={<h3 style={{ textAlign: "center" }}>Loading...</h3>}>
+      <Await resolve={deferedData.events}>
+        {(fetchedEvents) => <EventsList events={fetchedEvents} />}
+      </Await>
+    </Suspense>
+  );
 };
 
 export default EventsPage;
